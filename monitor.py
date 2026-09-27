@@ -6,6 +6,8 @@ import logging
 import argparse
 import os
 
+os.makedirs("logs", exist_ok=True)
+
 logging.basicConfig(
     filename="logs/monitor.log",
     level=logging.INFO,
@@ -167,7 +169,7 @@ def parse_arguments():
         parser.error("Warning threshold must be lower than critical threshold.")
 
     return args
-    
+
 
 def clear_screen():
     os.system("clear")
