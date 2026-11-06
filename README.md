@@ -26,7 +26,28 @@ A Linux system monitor built with Python and psutil to track CPU, memory, disk, 
 - psutil
 - argparse
 - pytest
+- uv (dependency and environment management)
+- Make (development task automation)
 - Git & GitHub
+- GitHub Actions (continuous integration)
+
+## Project Structure
+
+```text
+linux-system-monitor/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── tests/
+│   └── test_monitor.py
+├── .gitignore
+├── Makefile
+├── monitor.py
+├── pyproject.toml
+├── uv.lock
+├── requirements.txt
+└── README.md
+```
 
 ## Installation
 
@@ -37,23 +58,13 @@ git clone https://github.com/ossyanth/linux-system-monitor.git
 cd linux-system-monitor
 ```
 
-### 2. Create a virtual environment
+### 2. Set up the project
 
 ```bash
-python3 -m venv venv
+make setup
 ```
 
-### 3. Activate the virtual environment
-
-```bash
-source venv/bin/activate
-```
-
-### 4. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
+This uses uv to create the virtual environment and install the project dependencies.
 
 The project is now ready to run.
 
@@ -62,13 +73,13 @@ The project is now ready to run.
 ### Run a single monitoring check
 
 ```bash
-python monitor.py
+make run
 ```
 
 ### Continuously monitor the system
 
 ```bash
-python monitor.py --watch
+uv run python monitor.py --watch
 ```
 
 The dashboard refreshes every 5 seconds.
@@ -76,7 +87,7 @@ The dashboard refreshes every 5 seconds.
 ### Custom warning and critical thresholds
 
 ```bash
-python monitor.py --warning 70 --critical 90
+uv run python monitor.py --warning 70 --critical 90
 ```
 
 For example:
@@ -87,13 +98,13 @@ For example:
 ### Combine continuous monitoring with custom thresholds
 
 ```bash
-python monitor.py --watch --warning 70 --critical 90
+uv run python monitor.py --watch --warning 70 --critical 90
 ```
 
 ### View available command-line options
 
 ```bash
-python monitor.py --help
+uv run python monitor.py --help
 ```
 
 ### Stop continuous monitoring
@@ -151,7 +162,7 @@ PID: 81 | CPU: 0.0% | Memory: 0.4% | Name: systemd-resolved
 Run the test suite with:
 
 ```bash
-pytest
+make test
 ```
 
 Expected result:
@@ -170,6 +181,9 @@ Expected result:
 - Writing logs for system health events
 - Writing automated tests with pytest
 - Using Git and GitHub to manage and document a project
+- Managing Python dependencies and virtual environments with uv
+- Automating common development tasks with Make
+- Implementing continuous integration with GitHub Actions
 
 ## Future Improvements
 
@@ -178,6 +192,5 @@ Expected result:
 - Add more detailed process monitoring
 - Add CPU temperature monitoring where supported
 - Improve terminal output formatting
-- Add automated CI testing with GitHub Actions
 - Containerize the application with Docker
 - Add support for exporting monitoring data
